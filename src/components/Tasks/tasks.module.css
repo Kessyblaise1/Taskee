@@ -1,0 +1,40 @@
+.task_container{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.title_container{
+  display: flex;
+  align-items: center;
+  color: rgba(var(--text-color-dark));
+}
+
+.dot{
+  width: 15px;
+  height: 15px;
+  display: block;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.card_container{
+  overflow-y: scroll;
+}
+
+.card{
+  width: 300px;
+  height: max-content;
+  min-height: 80px;
+  background: rgb(var(--main-background));
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.card .description{
+  color: rgba(var(--text-color-dark));
+  font-size: 14px;
+  margin-top: .6rem;
+}

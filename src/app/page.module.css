@@ -1,4 +1,52 @@
-.main {
+.container {
   display: flex;
   min-height: 100vh;
+  width: 100vw;
+  gap: 1rem;
+}
+
+.main{
+  width: 85%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.main header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 20px;
+  border-left: .3px solid #505050;
+  border-bottom: .3px solid #505050;
+}
+
+.create_task{
+  padding: 10px 20px;
+  border-radius: 25px;
+}
+
+.right_pane{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.right_pane span{
+  color: rgba(var(--text-color-dark));
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.right_pane span:hover{
+  color: rgba(var(--text-color));
+}
+
+.tasks_container{
+  background: rgb(var(--kanban-background));
+  height: 100%;
+  padding: 1rem 15px;
+  border-left: .3px solid rgba(var(--kanban-background));
+  display: flex;
+  gap: 1rem;
 }

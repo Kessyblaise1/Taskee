@@ -8,16 +8,20 @@
   --kanban-background: 40, 40, 52;
   --purple-accent: 100,95,198,255;
   --text-color: 210, 210, 219;
+  --text-color-dark: 121,124,136;
   --card-background: 44, 44, 56, 255;
+  --modal-background: 44,44,58;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --main-background: 44, 44, 56;
-    --kanban-background: 40, 40, 52;
+    --kanban-background: 33,33,45,255;
     --purple-accent: 100,95,198,255;
-    --text-color: 210, 210, 219;
+    --text-color: 255, 255, 255;
+    --text-color-dark: 210, 210, 219, 0.55;
     --card-background: 44, 44, 56, 255;
+    --modal-background: 44,44,58;
   }
 }
 
@@ -47,6 +51,21 @@ p {
 
 button {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 15px;
+}
+
+.primary_btn{
+  background: rgb(var(--purple-accent));
+  color: rgb(var(--text-color));
+}
+
+.secondary_btn{
+  background: rgb(var(--text-color));
+  color: rgb(var(--kanban-background));
 }
 
 .g_purple {
