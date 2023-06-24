@@ -5,6 +5,7 @@ import Aside from '@/components/Aside/_layout'
 import tasks from '@/data'
 import { useState } from 'react'
 import CreateTask from '@/components/newTaskModal/_newTask'
+import Backdrop from '@/components/BackDrop/Backdrop'
 
 export default function Home() {
   const [showNewTask, setshowNewTask] = useState(false)
@@ -13,6 +14,10 @@ export default function Home() {
     doing:  tasks?.filter(task => task.status == "doing"),
     done : tasks?.filter(task => task.status == "done")
   })
+
+  const closeBackdrop = () => {
+    setshowNewTask(false)
+  }
   
   
   
@@ -34,6 +39,7 @@ export default function Home() {
         </div>
       </main>
 
+      {showNewTask && <Backdrop closeBackdrop={closeBackdrop}/>}
       {showNewTask && <CreateTask />}
     </div> 
   )
