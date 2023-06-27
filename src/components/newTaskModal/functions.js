@@ -37,4 +37,3 @@ export const updateInputValues = (ref, state1, state2, formData, inputValues) =>
   });
 }
 
-// subtasksContainer, setInputValues, setFormData, formData, inputValues

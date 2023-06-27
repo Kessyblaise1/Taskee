@@ -82,3 +82,17 @@
   cursor: pointer;
   background: rgba(0, 0, 0, 0.5)
 }
+
+.subtask_group{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.subtask_group span{
+  cursor: pointer;
+  color: rgba(var(--text-color-dark));
+  pointer-events: all;
+  user-select: none;
+}

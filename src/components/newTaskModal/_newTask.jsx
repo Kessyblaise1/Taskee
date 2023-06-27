@@ -56,22 +56,26 @@ const CreateTask = () => {
             <label htmlFor="subtasks">Subtasks</label>
             <div ref={inputsContainer}>
               {Array.from({ length: numOfSubTask }, (_, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  name="subtasks"
-                  id={`subtask${index + 1}`}
-                  placeholder="e.g. make coffee"
-                  onChange={() => {
-                    updateInputValues(
-                      subtasksContainer,
-                      setInputValues,
-                      setFormData,
-                      formData,
-                      inputValues
-                    );
-                  }}
-                />
+                <div key={index} className={styles.subtask_group}>
+                  <input
+                    type="text"
+                    name="subtasks"
+                    id={`subtask${index + 1}`}
+                    placeholder="e.g. make coffee"
+                    onChange={() => {
+                      updateInputValues(
+                        subtasksContainer,
+                        setInputValues,
+                        setFormData,
+                        formData,
+                        inputValues
+                      );
+                    }}
+                  />
+                  <span className="material-icons" onClick={()=> {
+                    setNumOfSubTask(numOfSubTask -1)
+                  }}>close</span>
+                </div>
               ))}
             </div>
             <button
