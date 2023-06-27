@@ -74,6 +74,7 @@ const CreateTask = () => {
                   />
                   <span className="material-icons" onClick={()=> {
                     setNumOfSubTask(numOfSubTask -1)
+                    setInputValues(inputValues.slice(0, -1))
                   }}>close</span>
                 </div>
               ))}
