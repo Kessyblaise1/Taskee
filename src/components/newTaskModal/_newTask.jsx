@@ -1,14 +1,14 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../../app/globals.css";
 import styles from "./newTask.module.css";
-import axios from "axios";
-import { addNewField } from "./functions";
+import { addNewField, handleChange, createTask, updateInputValues } from "./functions";
 
-const CreateTask = ({ closeBackdrop }) => {
+const CreateTask = () => {
   const subtasksContainer = useRef(null);
   const inputsContainer = useRef(null);
 
-  const [inputValues, setinputValues] = useState([]);
+  const [numOfSubTask, setNumOfSubTask] = useState(2);
+  const [inputValues, setInputValues] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
@@ -16,30 +16,12 @@ const CreateTask = ({ closeBackdrop }) => {
     status: "todo",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const createTask = (e) => {
-    e.preventDefault();
-    let inputs = subtasksContainer.current.querySelectorAll("input");
-    let inputValues = Array.from(inputs).map((input) => input.value);
-
-    setinputValues((inputValues) => {
-      setFormData({
-        ...formData,
-        subtasks: inputValues,
-      });
-
-      axios.post("http://localhost:80/taskee/task/save", formData);
-      console.log(formData);
-    });
-  };
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      subtasks: inputValues,
+    }));
+  }, [inputValues]);
 
   return (
     <div className={styles.newTask}>
@@ -55,7 +37,7 @@ const CreateTask = ({ closeBackdrop }) => {
               id="title"
               placeholder="e.g. take a coffee break"
               value={formData.title}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, setFormData, formData)}
             />
           </div>
 
@@ -66,24 +48,35 @@ const CreateTask = ({ closeBackdrop }) => {
               id="desc"
               placeholder="it's always good to take a break. This 15 minutes break will recharge the battery a little"
               value={formData.desc}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, setFormData, formData)}
             ></textarea>
           </div>
 
           <div className={styles.form_group} ref={subtasksContainer}>
             <label htmlFor="subtasks">Subtasks</label>
             <div ref={inputsContainer}>
-              <input type="text" name="subtasks" id="subtask1" placeholder="e.g. make coffee" />
-              <input
-                type="text"
-                name="subtasks"
-                id="subtask2"
-                placeholder="e.g. drink coffee and smile"
-              />
+              {Array.from({ length: numOfSubTask }, (_, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  name="subtasks"
+                  id={`subtask${index + 1}`}
+                  placeholder="e.g. make coffee"
+                  onChange={() => {
+                    updateInputValues(
+                      subtasksContainer,
+                      setInputValues,
+                      setFormData,
+                      formData,
+                      inputValues
+                    );
+                  }}
+                />
+              ))}
             </div>
             <button
               className="add_subtask secondary_btn"
-              onClick={(e) => addNewField(e, subtasksContainer)}
+              onClick={(e) => addNewField(e, setNumOfSubTask, numOfSubTask)}
             >
               +Add New Subtask
             </button>
@@ -96,7 +89,7 @@ const CreateTask = ({ closeBackdrop }) => {
               id="status"
               className="status"
               value={formData.status}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, setFormData, formData)}
             >
               <option value="todo">Todo</option>
               <option value="doing">Doing</option>
@@ -104,7 +97,14 @@ const CreateTask = ({ closeBackdrop }) => {
             </select>
           </div>
 
-          <button className="primary_btn" type="submit" value="Create Task" onClick={createTask}>
+          <button
+            className="primary_btn"
+            type="submit"
+            value="Create Task"
+            onClick={(e) => {
+              createTask(e, subtasksContainer, setInputValues, formData);
+            }}
+          >
             Create Task
           </button>
         </form>
